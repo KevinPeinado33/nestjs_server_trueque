@@ -4,6 +4,7 @@
 
 # variables de entorno
 .env
+modulos.txt
 
 # Logs
 logs
