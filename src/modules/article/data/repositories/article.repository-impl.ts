@@ -7,7 +7,7 @@ import { ArticleRepository } from '../../domain/repositories'
 import { Article } from '../models'
 
 @Injectable()
-export class ArticleImplRepository implements ArticleRepository {
+export class ArticleRepositoryImpl implements ArticleRepository {
     
     constructor(
         @InjectRepository( Article )
