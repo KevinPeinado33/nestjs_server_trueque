@@ -17,9 +17,10 @@ const common_1 = require("@nestjs/common");
 const usecases_1 = require("../../domain/usecases");
 const dtos_1 = require("../../domain/dtos");
 let ArticleController = exports.ArticleController = class ArticleController {
-    constructor(findAllArticleUseCase, createArticleUseCase) {
+    constructor(findAllArticleUseCase, createArticleUseCase, deleteArticleUseCase) {
         this.findAllArticleUseCase = findAllArticleUseCase;
         this.createArticleUseCase = createArticleUseCase;
+        this.deleteArticleUseCase = deleteArticleUseCase;
     }
     findAllArticles() {
         return this.findAllArticleUseCase.run();
@@ -29,42 +30,46 @@ let ArticleController = exports.ArticleController = class ArticleController {
     }
     getById() { }
     updateArticleById() { }
-    deleteArticleById() { }
+    deleteArticleById(id) {
+        return this.deleteArticleUseCase.run(id);
+    }
 };
 __decorate([
-    (0, common_1.Get)(),
+    (0, common_1.Get)('find-all'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], ArticleController.prototype, "findAllArticles", null);
 __decorate([
-    (0, common_1.Post)(),
+    (0, common_1.Post)('create-new'),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [dtos_1.CreateArticleDto]),
     __metadata("design:returntype", Promise)
 ], ArticleController.prototype, "createArticle", null);
 __decorate([
-    (0, common_1.Get)(':id'),
+    (0, common_1.Get)('fin-by-id/:id'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ArticleController.prototype, "getById", null);
 __decorate([
-    (0, common_1.Put)(':id'),
+    (0, common_1.Put)('update-by-id/:id'),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], ArticleController.prototype, "updateArticleById", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
+    (0, common_1.Delete)('delete-by-id/:id'),
+    __param(0, (0, common_1.Param)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", []),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], ArticleController.prototype, "deleteArticleById", null);
 exports.ArticleController = ArticleController = __decorate([
     (0, common_1.Controller)('articles'),
     __metadata("design:paramtypes", [usecases_1.FindAllArticleUseCase,
-        usecases_1.CreateArticleUseCase])
+        usecases_1.CreateArticleUseCase,
+        usecases_1.DeleteArticleUseCase])
 ], ArticleController);
 //# sourceMappingURL=article.controller.js.map

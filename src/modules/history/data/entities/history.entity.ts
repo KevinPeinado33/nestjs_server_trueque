@@ -1,4 +1,4 @@
-import { User } from 'src/modules/user/data/models'
+import { User } from 'src/modules/user/data/entities'
 import { Column, Entity, CreateDateColumn, PrimaryGeneratedColumn, ManyToOne, JoinColumn } from 'typeorm'
 
 @Entity({ name: 'histories' })
@@ -36,6 +36,6 @@ export class History {
         ( user ) => user.histories
     )
     @JoinColumn({ name: 'user_id' })
-    userId: string
+    user: User
 
 }

@@ -25,18 +25,41 @@ __decorate([
     __metadata("design:type", String)
 ], CreateArticleDto.prototype, "description", void 0);
 __decorate([
+    (0, class_validator_1.IsDate)(),
+    __metadata("design:type", Date)
+], CreateArticleDto.prototype, "publishDate", void 0);
+__decorate([
     (0, class_validator_1.IsUrl)(),
     (0, class_validator_1.IsArray)(),
     (0, class_validator_1.IsNotEmpty)(),
     __metadata("design:type", Array)
 ], CreateArticleDto.prototype, "images", void 0);
 __decorate([
-    (0, class_validator_1.IsNotEmpty)(),
-    (0, class_validator_1.IsDate)(),
-    __metadata("design:type", String)
-], CreateArticleDto.prototype, "publishDate", void 0);
-__decorate([
     (0, class_validator_1.IsBoolean)(),
     __metadata("design:type", Boolean)
 ], CreateArticleDto.prototype, "status", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    (0, class_validator_1.Min)(0),
+    (0, class_validator_1.Max)(10.0),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", Number)
+], CreateArticleDto.prototype, "condition", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    __metadata("design:type", String)
+], CreateArticleDto.prototype, "type", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsUUID)(),
+    __metadata("design:type", String)
+], CreateArticleDto.prototype, "userId", void 0);
+__decorate([
+    (0, class_validator_1.IsString)(),
+    (0, class_validator_1.IsNotEmpty)(),
+    (0, class_validator_1.IsUUID)(),
+    __metadata("design:type", String)
+], CreateArticleDto.prototype, "categoryId", void 0);
 //# sourceMappingURL=create-article.dto.js.map

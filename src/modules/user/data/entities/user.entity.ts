@@ -1,13 +1,25 @@
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
-import { Article } from '../../../article/data/models'
-import { History } from '../../../history/data/models'
+import { Article } from '../../../article/data/entities'
+import { History } from '../../../history/data/entities'
 
 @Entity({ name: 'users' })
 export class User {
 
     @PrimaryGeneratedColumn('uuid')
     id: string
+
+    @Column({ type: 'varchar', name: 'user_name', length: '100' })
+    userName: string
+
+    @Column({ type: 'varchar', length: '50' })
+    password: string
+
+    @Column({ type: 'varchar', length: '100' })
+    email: string
+
+    @Column({ type: 'varchar', name: 'phone_number', length: '20' })
+    phone: string
 
     @Column({ type: 'varchar', name: 'first_name', length: '150' })
     firstName: string
@@ -48,13 +60,13 @@ export class User {
      */
     @OneToMany(
         () => Article,
-        ( article ) =>  article.userId
+        ( article ) =>  article.user
     )
     articles: Article[]
 
     @OneToMany(
         () => History,
-        ( history ) =>  history.userId
+        ( history ) =>  history.user
     )
     histories: History[]
 

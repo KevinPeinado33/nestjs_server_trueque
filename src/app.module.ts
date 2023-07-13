@@ -2,8 +2,6 @@ import "reflect-metadata"
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 
-import { AppController } from './app.controller'
-
 import { enviroments } from './common/config/enviroments'
 import configuration from './common/config/configuration'
 
@@ -38,9 +36,7 @@ import { UserModule } from './modules/user/user.module'
     HistoryModule,
     UserModule,
 
-  ],
-
-  controllers: [AppController]
+  ]
 
 })
 export class AppModule { }

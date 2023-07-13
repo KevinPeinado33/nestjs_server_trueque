@@ -1,4 +1,4 @@
-import { Category } from '../../data/models';
+import { Category } from '../../data/entities';
 import { CategoryRepository } from '../repositories';
 export declare class FindAllCategoryUseCase {
     private categoryRepository;

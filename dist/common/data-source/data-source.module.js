@@ -28,7 +28,7 @@ exports.DataSourceModule = DataSourceModule = __decorate([
                         username: user,
                         password,
                         database: dbName,
-                        synchronize: false,
+                        synchronize: true,
                         autoLoadEntities: true
                     };
                 }

@@ -16,7 +16,7 @@ exports.FindArticleByUseCase = void 0;
 const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const typeorm_2 = require("@nestjs/typeorm");
-const models_1 = require("../../data/models");
+const entities_1 = require("../../data/entities");
 let FindArticleByUseCase = exports.FindArticleByUseCase = class FindArticleByUseCase {
     constructor(articleRepository) {
         this.articleRepository = articleRepository;
@@ -24,7 +24,7 @@ let FindArticleByUseCase = exports.FindArticleByUseCase = class FindArticleByUse
 };
 exports.FindArticleByUseCase = FindArticleByUseCase = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_2.InjectRepository)(models_1.Article)),
+    __param(0, (0, typeorm_2.InjectRepository)(entities_1.Article)),
     __metadata("design:paramtypes", [typeorm_1.Repository])
 ], FindArticleByUseCase);
 //# sourceMappingURL=find-article-by.usecase.js.map

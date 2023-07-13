@@ -4,7 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm'
 
 import { CreateArticleDto } from '../../domain/dtos'
 import { ArticleRepository } from '../../domain/repositories'
-import { Article } from '../models'
+import { Article } from '../entities'
 
 @Injectable()
 export class ArticleRepositoryImpl implements ArticleRepository {
@@ -14,7 +14,18 @@ export class ArticleRepositoryImpl implements ArticleRepository {
         private articleRepository: Repository< Article >
     ) { }
 
-    save(payload: CreateArticleDto): Promise<Article> {
+    
+    async create(payload: CreateArticleDto): Promise<Article> {
+        
+        try {
+            return await this.articleRepository.create( payload )
+        } catch( error ) {
+            throw new InternalServerErrorException('Error al modificar.')
+        }
+        
+    }
+    
+    save(payload: Article): Promise<Article> {
         
         try {
             return this.articleRepository.save( payload )
@@ -22,16 +33,6 @@ export class ArticleRepositoryImpl implements ArticleRepository {
             throw new InternalServerErrorException('Error al modificar.')
         }
 
-    }
-    
-    async create(payload: Article): Promise<Article> {
-        
-        try {
-            return await this.articleRepository.create(payload)
-        } catch( error ) {
-            throw new InternalServerErrorException('Error al modificar.')
-        }
-    
     }
     
     findAll(): Promise<Article[]> {

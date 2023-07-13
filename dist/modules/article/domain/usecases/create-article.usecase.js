@@ -8,27 +8,36 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var __param = (this && this.__param) || function (paramIndex, decorator) {
-    return function (target, key) { decorator(target, key, paramIndex); }
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CreateArticleUseCase = void 0;
-const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
-const typeorm_2 = require("@nestjs/typeorm");
-const models_1 = require("../../data/models");
+const repostories_1 = require("../../../user/domain/repostories");
+const repositories_1 = require("../repositories");
 let CreateArticleUseCase = exports.CreateArticleUseCase = class CreateArticleUseCase {
-    constructor(articleRepository) {
+    constructor(articleRepository, categoryRepository, userRepository) {
         this.articleRepository = articleRepository;
+        this.categoryRepository = categoryRepository;
+        this.userRepository = userRepository;
     }
-    run(data) {
-        const article = this.articleRepository.create(data);
-        return this.articleRepository.save(article);
+    async run(data) {
+        const newArticle = await this.articleRepository.create(data);
+        if (!newArticle)
+            throw new common_1.InternalServerErrorException('Hubo un error al instanciar articulo');
+        const categoryFound = await this.categoryRepository.findById(data.categoryId);
+        if (!categoryFound)
+            throw new common_1.InternalServerErrorException(`No existe un categoria con id #. ${data.categoryId}`);
+        newArticle.category = categoryFound;
+        const userFound = await this.userRepository.findById(data.userId);
+        if (!userFound)
+            throw new common_1.InternalServerErrorException(`No existe un usuario con id #${data.userId}`);
+        newArticle.user = userFound;
+        return this.articleRepository.save(newArticle);
     }
 };
 exports.CreateArticleUseCase = CreateArticleUseCase = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_2.InjectRepository)(models_1.Article)),
-    __metadata("design:paramtypes", [typeorm_1.Repository])
+    __metadata("design:paramtypes", [repositories_1.ArticleRepository,
+        repositories_1.CategoryRepository,
+        repostories_1.UserRepository])
 ], CreateArticleUseCase);
 //# sourceMappingURL=create-article.usecase.js.map

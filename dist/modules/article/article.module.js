@@ -9,17 +9,21 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ArticleModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const models_1 = require("./data/models");
+const entities_1 = require("./data/entities");
 const usecases_1 = require("./domain/usecases");
 const repositories_1 = require("./data/repositories");
 const repositories_2 = require("./domain/repositories");
 const article_controller_1 = require("./presentation/controllers/article.controller");
 const category_controller_1 = require("./presentation/controllers/category.controller");
+const user_module_1 = require("../user/user.module");
 let ArticleModule = exports.ArticleModule = class ArticleModule {
 };
 exports.ArticleModule = ArticleModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([models_1.Article, models_1.Category, models_1.Exchange])],
+        imports: [
+            user_module_1.UserModule,
+            typeorm_1.TypeOrmModule.forFeature([entities_1.Article, entities_1.Category, entities_1.Exchange])
+        ],
         controllers: [article_controller_1.ArticleController, category_controller_1.CategoryController],
         providers: [
             usecases_1.FindAllArticleUseCase,

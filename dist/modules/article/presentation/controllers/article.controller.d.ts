@@ -1,13 +1,14 @@
-import { FindAllArticleUseCase, CreateArticleUseCase } from '../../domain/usecases';
-import { Article } from '../../data/models';
+import { FindAllArticleUseCase, CreateArticleUseCase, DeleteArticleUseCase } from '../../domain/usecases';
+import { Article } from '../../data/entities';
 import { CreateArticleDto } from '../../domain/dtos';
 export declare class ArticleController {
     private findAllArticleUseCase;
     private createArticleUseCase;
-    constructor(findAllArticleUseCase: FindAllArticleUseCase, createArticleUseCase: CreateArticleUseCase);
+    private deleteArticleUseCase;
+    constructor(findAllArticleUseCase: FindAllArticleUseCase, createArticleUseCase: CreateArticleUseCase, deleteArticleUseCase: DeleteArticleUseCase);
     findAllArticles(): Promise<Article[]>;
     createArticle(payload: CreateArticleDto): Promise<Article>;
     getById(): void;
     updateArticleById(): void;
-    deleteArticleById(): void;
+    deleteArticleById(id: string): void;
 }

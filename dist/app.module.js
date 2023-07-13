@@ -10,7 +10,6 @@ exports.AppModule = void 0;
 require("reflect-metadata");
 const common_1 = require("@nestjs/common");
 const config_1 = require("@nestjs/config");
-const app_controller_1 = require("./app.controller");
 const enviroments_1 = require("./common/config/enviroments");
 const configuration_1 = require("./common/config/configuration");
 const article_module_1 = require("./modules/article/article.module");
@@ -31,8 +30,7 @@ exports.AppModule = AppModule = __decorate([
             article_module_1.ArticleModule,
             history_module_1.HistoryModule,
             user_module_1.UserModule,
-        ],
-        controllers: [app_controller_1.AppController]
+        ]
     })
 ], AppModule);
 //# sourceMappingURL=app.module.js.map

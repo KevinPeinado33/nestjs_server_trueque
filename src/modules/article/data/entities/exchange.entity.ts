@@ -1,5 +1,5 @@
 import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, JoinColumn } from 'typeorm';
-import { Article } from './article.model'
+import { Article } from './article.entity'
 
 @Entity({ name: 'exchanges' })
 export class Exchange {
@@ -33,10 +33,10 @@ export class Exchange {
 
     @ManyToOne( () => Article )
     @JoinColumn({ name: 'article_id' })
-    articleId: string
+    article: Article
     
     @ManyToOne( () => Article )
     @JoinColumn({ name: 'exchanged_for_id' })
-    exchangedForId: string
+    exchangedFor: Article
 
 }

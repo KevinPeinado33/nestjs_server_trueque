@@ -1,5 +1,7 @@
 import { Entity, PrimaryGeneratedColumn } from 'typeorm'
 
+import { User } from './'
+
 @Entity({ name: 'preferences' })
 export class Preference {
 
@@ -9,7 +11,7 @@ export class Preference {
     /**
      * Relaciones con la base de datos
      */
-    userId: string
+    userId: User
 
     
 }

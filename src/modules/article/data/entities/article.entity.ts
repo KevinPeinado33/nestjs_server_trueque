@@ -1,9 +1,10 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, CreateDateColumn, Entity, Index, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm'
 
-import { User } from '../../../user/data/models/user.model'
+import { User } from '../../../user/data/entities/user.entity'
 import { Category } from './'
 
 @Entity({ name: 'articles' })
+@Index([ 'title', 'condition', 'type', 'publishDate' ])
 export class Article {
 
     @PrimaryGeneratedColumn('uuid')
@@ -17,7 +18,8 @@ export class Article {
 
     @CreateDateColumn({
         type: 'timestamptz',
-        default: () => 'CURRENT_TIMESTAMP'
+        default: () => 'CURRENT_TIMESTAMP',
+        name: 'publish_date'
     })
     publishDate: Date
 
@@ -49,19 +51,18 @@ export class Article {
     /**
      * Relaciones con otras tablas
      */
-
     @ManyToOne(
         () => User,
         ( user ) => user.articles
     )
     @JoinColumn({ name: 'user_id' })
-    userId: User
+    user: User
     
     @ManyToOne(
         () => Category,
         ( category ) => category.articles
     )
     @JoinColumn({ name: 'category_id' })
-    categoryId: Category
+    category: Category
 
 }

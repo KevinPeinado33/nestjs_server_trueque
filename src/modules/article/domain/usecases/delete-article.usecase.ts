@@ -2,7 +2,7 @@ import { Repository } from 'typeorm'
 import { Injectable } from '@nestjs/common'
 import { InjectRepository } from '@nestjs/typeorm'
 
-import { Article } from '../../data/models'
+import { Article } from '../../data/entities'
 
 @Injectable()
 export class DeleteArticleUseCase {
@@ -11,5 +11,9 @@ export class DeleteArticleUseCase {
         @InjectRepository( Article ) 
         private articleRepository: Repository< Article >
     ) { }
+
+    run ( id: string ) {
+        const articleFound = 5
+    }
 
 }

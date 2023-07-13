@@ -9,12 +9,12 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.HistoryModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const models_1 = require("./data/models");
+const entities_1 = require("./data/entities");
 let HistoryModule = exports.HistoryModule = class HistoryModule {
 };
 exports.HistoryModule = HistoryModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([models_1.History, models_1.DetailHistory])],
+        imports: [typeorm_1.TypeOrmModule.forFeature([entities_1.History, entities_1.DetailHistory])],
         controllers: [],
         providers: [],
         exports: [typeorm_1.TypeOrmModule]

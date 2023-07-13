@@ -1,5 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
-import { Article } from './'
+import { Article } from '.'
 
 @Entity({ name: 'categories' })
 export class Category {
@@ -18,7 +18,7 @@ export class Category {
 
     @OneToMany(
         () => Article,
-        ( article ) =>  article.userId
+        ( article ) =>  article.user
     )
     articles: Article[]
 

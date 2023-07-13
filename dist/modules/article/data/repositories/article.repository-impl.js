@@ -16,22 +16,22 @@ exports.ArticleRepositoryImpl = void 0;
 const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const typeorm_2 = require("@nestjs/typeorm");
-const models_1 = require("../models");
+const entities_1 = require("../entities");
 let ArticleRepositoryImpl = exports.ArticleRepositoryImpl = class ArticleRepositoryImpl {
     constructor(articleRepository) {
         this.articleRepository = articleRepository;
     }
-    save(payload) {
+    async create(payload) {
         try {
-            return this.articleRepository.save(payload);
+            return await this.articleRepository.create(payload);
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Error al modificar.');
         }
     }
-    async create(payload) {
+    save(payload) {
         try {
-            return await this.articleRepository.create(payload);
+            return this.articleRepository.save(payload);
         }
         catch (error) {
             throw new common_1.InternalServerErrorException('Error al modificar.');
@@ -48,7 +48,7 @@ let ArticleRepositoryImpl = exports.ArticleRepositoryImpl = class ArticleReposit
 };
 exports.ArticleRepositoryImpl = ArticleRepositoryImpl = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_2.InjectRepository)(models_1.Article)),
+    __param(0, (0, typeorm_2.InjectRepository)(entities_1.Article)),
     __metadata("design:paramtypes", [typeorm_1.Repository])
 ], ArticleRepositoryImpl);
 //# sourceMappingURL=article.repository-impl.js.map

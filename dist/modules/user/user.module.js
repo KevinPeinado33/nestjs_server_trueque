@@ -9,15 +9,20 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.UserModule = void 0;
 const common_1 = require("@nestjs/common");
 const typeorm_1 = require("@nestjs/typeorm");
-const models_1 = require("./data/models");
+const entities_1 = require("./data/entities");
+const repostories_1 = require("./domain/repostories");
+const repositories_1 = require("./data/repositories");
+const user_controller_1 = require("./presentation/controllers/user.controller");
 let UserModule = exports.UserModule = class UserModule {
 };
 exports.UserModule = UserModule = __decorate([
     (0, common_1.Module)({
-        imports: [typeorm_1.TypeOrmModule.forFeature([models_1.User, models_1.Preference])],
-        controllers: [],
-        providers: [],
-        exports: [typeorm_1.TypeOrmModule]
+        imports: [typeorm_1.TypeOrmModule.forFeature([entities_1.User, entities_1.Preference])],
+        controllers: [user_controller_1.UserController],
+        providers: [
+            { provide: repostories_1.UserRepository, useClass: repositories_1.UserRepositoryImpl }
+        ],
+        exports: [typeorm_1.TypeOrmModule, repostories_1.UserRepository]
     })
 ], UserModule);
 //# sourceMappingURL=user.module.js.map

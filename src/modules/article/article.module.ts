@@ -1,16 +1,23 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { Article, Category, Exchange } from './data/models'
+import { Article, Category, Exchange } from './data/entities'
 import { CreateArticleUseCase, DeleteArticleUseCase, FindAllArticleUseCase, FindAllCategoryUseCase, FindArticleByUseCase } from './domain/usecases'
 import { ArticleRepositoryImpl, CategoryRepositoryImpl } from './data/repositories'
 import { ArticleRepository, CategoryRepository } from './domain/repositories'
 import { ArticleController } from './presentation/controllers/article.controller'
 import { CategoryController } from './presentation/controllers/category.controller'
+import { UserModule } from '../user/user.module'
 
 @Module({
-    imports: [ TypeOrmModule.forFeature([ Article, Category , Exchange]) ],
+
+    imports: [ 
+        UserModule,
+        TypeOrmModule.forFeature([ Article, Category , Exchange]) 
+    ],
+
     controllers: [ ArticleController, CategoryController ],
+
     providers: [ 
         FindAllArticleUseCase, 
         CreateArticleUseCase,
@@ -22,6 +29,8 @@ import { CategoryController } from './presentation/controllers/category.controll
         { provide: ArticleRepository, useClass: ArticleRepositoryImpl },
         { provide: CategoryRepository, useClass: CategoryRepositoryImpl }
     ],
+
     exports: [ TypeOrmModule ]
+
 })
 export class ArticleModule { }

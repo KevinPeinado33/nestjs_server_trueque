@@ -1,6 +1,7 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
-import { DetailHistory, History } from './data/models'
+
+import { DetailHistory, History } from './data/entities'
 
 @Module({
     imports: [ TypeOrmModule.forFeature([ History, DetailHistory ]) ],

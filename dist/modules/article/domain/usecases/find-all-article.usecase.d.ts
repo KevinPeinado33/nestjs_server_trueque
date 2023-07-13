@@ -1,4 +1,4 @@
-import { Article } from '../../data/models';
+import { Article } from '../../data/entities';
 import { ArticleRepository } from '../repositories';
 export declare class FindAllArticleUseCase {
     private articleRepository;

@@ -3,7 +3,7 @@ import { Controller, Get } from '@nestjs/common'
 import { 
     FindAllCategoryUseCase
 } from '../../domain/usecases'
-import { Category } from '../../data/models'
+import { Category } from '../../data/entities'
 
 @Controller('categories')
 export class CategoryController {

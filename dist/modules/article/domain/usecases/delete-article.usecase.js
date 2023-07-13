@@ -16,15 +16,18 @@ exports.DeleteArticleUseCase = void 0;
 const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const typeorm_2 = require("@nestjs/typeorm");
-const models_1 = require("../../data/models");
+const entities_1 = require("../../data/entities");
 let DeleteArticleUseCase = exports.DeleteArticleUseCase = class DeleteArticleUseCase {
     constructor(articleRepository) {
         this.articleRepository = articleRepository;
     }
+    run(id) {
+        const articleFound = 5;
+    }
 };
 exports.DeleteArticleUseCase = DeleteArticleUseCase = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_2.InjectRepository)(models_1.Article)),
+    __param(0, (0, typeorm_2.InjectRepository)(entities_1.Article)),
     __metadata("design:paramtypes", [typeorm_1.Repository])
 ], DeleteArticleUseCase);
 //# sourceMappingURL=delete-article.usecase.js.map

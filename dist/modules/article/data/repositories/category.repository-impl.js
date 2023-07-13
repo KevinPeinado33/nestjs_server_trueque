@@ -16,7 +16,7 @@ exports.CategoryRepositoryImpl = void 0;
 const typeorm_1 = require("typeorm");
 const common_1 = require("@nestjs/common");
 const typeorm_2 = require("@nestjs/typeorm");
-const models_1 = require("../models");
+const entities_1 = require("../entities");
 let CategoryRepositoryImpl = exports.CategoryRepositoryImpl = class CategoryRepositoryImpl {
     constructor(categoryRepository) {
         this.categoryRepository = categoryRepository;
@@ -29,10 +29,18 @@ let CategoryRepositoryImpl = exports.CategoryRepositoryImpl = class CategoryRepo
             throw new common_1.InternalServerErrorException('Error al extraer.');
         }
     }
+    findById(id) {
+        try {
+            return this.categoryRepository.findOneBy({ id });
+        }
+        catch (error) {
+            throw new common_1.InternalServerErrorException('No se pudo seleccionar.');
+        }
+    }
 };
 exports.CategoryRepositoryImpl = CategoryRepositoryImpl = __decorate([
     (0, common_1.Injectable)(),
-    __param(0, (0, typeorm_2.InjectRepository)(models_1.Category)),
+    __param(0, (0, typeorm_2.InjectRepository)(entities_1.Category)),
     __metadata("design:paramtypes", [typeorm_1.Repository])
 ], CategoryRepositoryImpl);
 //# sourceMappingURL=category.repository-impl.js.map
