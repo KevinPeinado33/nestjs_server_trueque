@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
+import { DetailHistory, History } from './data/models'
 
 @Module({
-    imports: [ TypeOrmModule.forFeature([ /** Aqui van todos los modelos */ ]) ],
+    imports: [ TypeOrmModule.forFeature([ History, DetailHistory ]) ],
     controllers: [  ],
     providers: [ 
         /**

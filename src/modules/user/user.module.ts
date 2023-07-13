@@ -1,8 +1,10 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
+import { Preference, User } from './data/models'
+
 @Module({
-    imports: [ TypeOrmModule.forFeature([ /** Aqui van todos los modelos */ ]) ],
+    imports: [ TypeOrmModule.forFeature([ User, Preference ]) ],
     controllers: [  ],
     providers: [ 
         /**

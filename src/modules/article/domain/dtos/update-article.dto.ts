@@ -1,3 +1,5 @@
 import { CreateArticleDto } from './'
 
-export class UpdateArticleDto extends CreateArticleDto { }
+export class UpdateArticleDto extends CreateArticleDto {
+    id: string
+}

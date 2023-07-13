@@ -1,18 +1,25 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm'
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm'
+import { Article } from './'
 
 @Entity({ name: 'categories' })
 export class Category {
 
     @PrimaryGeneratedColumn('uuid')
-    id: number
+    id: string
 
-    @Column({ type: 'varchar', length: '150' })
+    @Column({ type: 'varchar', length: '100' })
     title: string
 
-    @Column({ type: 'varchar', length: '150' })
+    @Column({ type: 'varchar', length: '250' })
     description: string
 
     @Column({ type: 'boolean' })
     status: boolean
+
+    @OneToMany(
+        () => Article,
+        ( article ) =>  article.userId
+    )
+    articles: Article[]
 
 }
