@@ -1,14 +1,24 @@
-import { Controller, Post, Req, UseGuards } from '@nestjs/common'
-import { User } from '../../data/entities'
+import { Body, Controller, Post } from '@nestjs/common'
+
+import { LoginDto, RegisterDto } from '../../domain/dtos'
+import { LoginUseCase, RegisterUseCase } from '../../domain/usecases'
 
 @Controller('user')
 export class UserController {
     
-    constructor() { }
+    constructor(
+        private loginUseCase: LoginUseCase,
+        private regiterUseCase: RegisterUseCase
+    ) { }
 
     @Post('login')
-    login(@Req() req: Request) {
-        
+    login(@Body() loginDto: LoginDto) {
+        return this.loginUseCase.run( loginDto )
+    }
+
+    @Post('register')
+    regiter(@Body() registerDto: RegisterDto) {
+        return this.regiterUseCase.run( registerDto )
     }
 
 }

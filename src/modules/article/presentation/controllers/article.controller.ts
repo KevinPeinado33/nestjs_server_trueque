@@ -8,7 +8,6 @@ import {
 import { Article } from '../../data/entities'
 import { CreateArticleDto } from '../../domain/dtos'
 
-
 @Controller('articles')
 export class ArticleController {
 
