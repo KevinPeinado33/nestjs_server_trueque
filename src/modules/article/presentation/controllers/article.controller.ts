@@ -1,10 +1,12 @@
-import { Body, Controller, Delete, Get, Inject, Param, Post, Put } from '@nestjs/common'
+import { Body, Controller, Delete, Get, HttpCode, Inject, Param, Post, Put, Query, HttpStatus } from '@nestjs/common'
 
-import { CreateArticleDto } from '../dtos'
-import { CreateArticleUseCase, FindArticlesUseCase } from '../../app/article'
-import { ArticleUseCaseProxyModule } from '../../infrastructure/proxy'
 import { IResponse } from 'src/common/responses'
 import { CustomParseUUIDPipe } from 'src/common/pipes/parse-uuid.pipe'
+import { CreateArticleUseCase, FindArticleUseCase, FindArticlesUseCase } from '../../app/article'
+import { ArticleUseCaseProxyModule } from '../../infrastructure/proxy'
+import { ArticleDto, PaginationDto } from '../dtos'
+import { DeleteArticleUseCase } from '../../app/article/delete.usecase'
+import { UpdateArticleUseCase } from '../../app/article/update.usecase'
 
 @Controller('article')
 export class ArticleController {
@@ -14,22 +16,39 @@ export class ArticleController {
         private readonly createArticleProxy: CreateArticleUseCase,
 
         @Inject(ArticleUseCaseProxyModule.FIND_ARTICLES_USECASE)
-        private readonly findArticlesProxy: FindArticlesUseCase
+        private readonly findArticlesProxy: FindArticlesUseCase,
+
+        @Inject(ArticleUseCaseProxyModule.FIND_ARTICLE_USECASE)
+        private readonly findArticleProxy: FindArticleUseCase,
+
+        @Inject(ArticleUseCaseProxyModule.DELETE_ARTICLE_USECASE)
+        private readonly deleteArticleProxy: DeleteArticleUseCase,
+
+        @Inject(ArticleUseCaseProxyModule.UPDATE_ARTICLE_USECASE)
+        private readonly updateArticleProxy: UpdateArticleUseCase
     ) { }
 
     @Get('find-all')
-    async findAllArticles(): Promise< IResponse > {
+    async findAllArticles(
+        
+        @Query()
+        query: PaginationDto
 
-        const data = await this.findArticlesProxy.run()
+    ): Promise< IResponse > {
+
+        const data = await this.findArticlesProxy.run( query )
         
         return { msg: 'ok', data }
 
     }
 
-    @Post('create-new')
+    @Post('create')
+    @HttpCode(HttpStatus.CREATED)
     async createArticle(
+        
         @Body() 
-        payload: CreateArticleDto
+        payload: ArticleDto
+
     ): Promise< IResponse > {
         
         const data = await this.createArticleProxy.run( payload )
@@ -38,24 +57,46 @@ export class ArticleController {
 
     }
 
-    @Get('fin-by-id/:id')
-    getById(
+    @Get('find/:id')
+    async getById(
+        
         @Param('id', CustomParseUUIDPipe)
         id: string
-    ) {
-        return 'holaaa si pasaste la prueba'
+
+    ): Promise< IResponse > {
+
+        const data = await this.findArticleProxy.run( id )
+
+        return { msg: 'ok', data }
+
     }
 
-    @Put('update-by-id/:id')
-    updateArticleById() { }
+    @Put('update/:id')
+    async updateArticleById(
 
-    @Delete('delete-by-id/:id')
+        @Param('id', CustomParseUUIDPipe)
+        id: string,
+        
+        @Body()
+        payload: ArticleDto
+
+    ): Promise< IResponse > {
+
+        const data = await this.updateArticleProxy.run(id, payload)
+        
+        return { msg: 'ok', data }
+
+    }
+
+    @Delete('delete/:id')
     async deleteArticleById(
-        @Param() 
+        
+        @Param('id', CustomParseUUIDPipe) 
         id: string
+
     ): Promise< IResponse > {
         
-        // TODO: implementar la eliminacion
+        await this.deleteArticleProxy.run( id )
 
         return { msg: 'Articulo eliminado!' }
 

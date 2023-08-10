@@ -2,19 +2,19 @@ import { NotFoundException } from '@nestjs/common'
 
 import { UserRepositoryOrm } from 'src/modules/user/infrastructure/repositories'
 import { ArticleRepositoryOrm, CategoryRepositoryOrm } from '../../infrastructure/repositories'
-import { CreateArticleDto } from '../../presentation/dtos'
+import { ArticleDto } from '../../presentation/dtos'
 import { ArticleModel } from '../../domain/models'
 import { ArticleMapper } from '../../domain/mappers'
 
 export class CreateArticleUseCase {
 
     constructor(
-        private articleRepository  : ArticleRepositoryOrm,
-        private categoryRepository : CategoryRepositoryOrm,
-        private userRepository     : UserRepositoryOrm
+        private readonly articleRepository  : ArticleRepositoryOrm,
+        private readonly categoryRepository : CategoryRepositoryOrm,
+        private readonly userRepository     : UserRepositoryOrm
     ) { }
 
-    async run(payload: CreateArticleDto): Promise< ArticleModel > {
+    async run(payload: ArticleDto): Promise< ArticleModel > {
 
         const articlePrepared = ArticleMapper.dtoToModel( payload )
 

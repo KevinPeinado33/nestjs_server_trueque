@@ -1,10 +1,10 @@
 import { ArticleEntity } from '../../infrastructure/entities'
-import { CreateArticleDto } from '../../presentation/dtos'
+import { ArticleDto } from '../../presentation/dtos'
 import { ArticleModel } from '../models'
 
 export class ArticleMapper {
     
-    static dtoToModel(dto: CreateArticleDto): ArticleModel {
+    static dtoToModel(dto: ArticleDto): ArticleModel {
         
         const model = new ArticleModel({
             title: dto.title,
@@ -33,8 +33,8 @@ export class ArticleMapper {
             status: entity.status,
             condition: entity.condition,
             type: entity.type,
-            userId: entity.user.id,
-            categoryId: entity.category.id,
+            userId: entity.user?.id,
+            categoryId: entity.category?.id,
         })
 
         return model
@@ -44,6 +44,8 @@ export class ArticleMapper {
     static entitiesToModels(entities: ArticleEntity[]): ArticleModel[] {
         
         const models = entities.map(( entity ) => {
+
+            console.log({ entity })
 
             const model = new ArticleModel({
                 id: entity.id!,

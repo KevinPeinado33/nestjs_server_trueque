@@ -1,6 +1,6 @@
 import { IsString, IsNotEmpty, IsArray, IsNumber, Min, Max, IsUUID, ArrayNotEmpty, ArrayMinSize, IsIn, IsUrl, IsOptional, IsPositive } from 'class-validator'
 
-export class CreateArticleDto {
+export class ArticleDto {
 
     @IsString()
     @IsNotEmpty()

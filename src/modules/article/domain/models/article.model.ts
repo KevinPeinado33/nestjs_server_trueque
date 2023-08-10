@@ -23,6 +23,7 @@ export class ArticleModel {
         this.type        = values.type || 'normal'
         this.userId      = values.userId
         this.categoryId  = values.categoryId
+        
         this.slug        = this.generateSlug(values.slug || values.title) 
     }
     

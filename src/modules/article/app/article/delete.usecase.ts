@@ -1,23 +1,26 @@
 import { NotFoundException } from '@nestjs/common'
 
-import { ArticleModel } from '../../domain/models'
 import { ArticleRepositoryOrm } from '../../infrastructure/repositories'
-import { ArticleMapper } from '../../domain/mappers'
-export class FindArticleUseCase {
+
+export class DeleteArticleUseCase {
+
+    STATUS_DELETE_ARTICLE = false
 
     constructor(
         private readonly articleRepository: ArticleRepositoryOrm
-    ){ }
+    ) { }
 
-    async run (id: string): Promise< ArticleModel > {
+    async run (id: string): Promise< void > {
         
         const articleFound = await this.articleRepository.findOneById( id )
 
         if ( !articleFound ) {
-            throw new NotFoundException(`No encontramos el articulo con id #${ id }`)
+            throw new NotFoundException(`No existe un articulo con id #${ id }`)
         }
 
-        return ArticleMapper.entityToModel( articleFound )
+        articleFound.status = this.STATUS_DELETE_ARTICLE
+
+        await this.articleRepository.save( articleFound )
         
     }
 

@@ -11,7 +11,7 @@ export class CategoryController {
         private readonly findCategoriesProxy: FindCategoriesUseCase
     ) { }
 
-    @Get('find-all')
+    @Get('get-all')
     async findAllCategory(): Promise< IResponse > {
 
         const data = await this.findCategoriesProxy.run()
