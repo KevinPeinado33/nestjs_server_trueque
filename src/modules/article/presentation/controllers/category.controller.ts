@@ -1,19 +1,23 @@
-import { Controller, Get } from '@nestjs/common'
+import { Controller, Get, Inject } from '@nestjs/common'
 
-import { 
-    FindAllCategoryUseCase
-} from '../../domain/usecases'
-import { Category } from '../../data/entities'
-
-@Controller('categories')
+import { FindCategoriesUseCase } from '../../app/category'
+import { CategoryUseCaseProxyModule } from '../../infrastructure/proxy'
+import { IResponse } from 'src/common/responses'
+@Controller('category')
 export class CategoryController {
 
     constructor( 
-        private findAllCategoryUseCase: FindAllCategoryUseCase,
+        @Inject(CategoryUseCaseProxyModule.FIND_CATEGORIES_USECASE)
+        private readonly findCategoriesProxy: FindCategoriesUseCase
     ) { }
 
-    @Get()
-    findAllCategory(): Promise< Category[] > {
-        return this.findAllCategoryUseCase.run()
+    @Get('find-all')
+    async findAllCategory(): Promise< IResponse > {
+
+        const data = await this.findCategoriesProxy.run()
+
+        return { msg: 'ok', data }
+
     }
+
 }

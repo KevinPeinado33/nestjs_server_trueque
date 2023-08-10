@@ -3,18 +3,16 @@ import { JwtModule } from '@nestjs/jwt'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { Preference, User } from './data/entities'
-import { UserRepository } from './domain/repostories'
-import { UserRepositoryImpl } from './data/repositories'
-import { UserController } from './presentation/controllers/user.controller'
-import { LoginUseCase, RegisterUseCase } from './domain/usecases'
-import configuration from 'src/common/config/configuration'
+import configuration from 'src/config/configuration'
+import { PreferenceEntity, UserEntity } from './infrastructure/entities'
+import { UserRepositoryOrm } from './infrastructure/repositories'
+import { AuthController, UserController } from './presentation/controllers'
 
 @Module({
     
     imports: [ 
-    
-        TypeOrmModule.forFeature([ User, Preference ]),
+
+        TypeOrmModule.forFeature([ UserEntity, PreferenceEntity ]),
         
         JwtModule.registerAsync({
             
@@ -33,21 +31,15 @@ import configuration from 'src/common/config/configuration'
     
     ],
     
-    controllers: [ UserController  ],
-    providers: [ 
-        LoginUseCase,
-        RegisterUseCase,
-        /**
-          * FindAllArticleUseCase, 
-          * CreateArticleUseCase,
-          * DeleteArticleUseCase,
-          * FindAllArticleUseCase,
-          * FindArticleByUseCase,
-                 
-          * { provide: ArticleRepository, useClass: ArticleImplRepository } 
-         */    
-        { provide: UserRepository, useClass: UserRepositoryImpl } 
+    controllers: [ 
+        UserController, 
+        AuthController  
     ],
-    exports: [ TypeOrmModule, UserRepository ]
+    
+    providers: [ 
+        UserRepositoryOrm
+    ],
+    
+    exports: [ TypeOrmModule, UserRepositoryOrm ]
 })
 export class UserModule { }

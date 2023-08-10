@@ -1,36 +1,32 @@
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
-import { Article, Category, Exchange } from './data/entities'
-import { CreateArticleUseCase, DeleteArticleUseCase, FindAllArticleUseCase, FindAllCategoryUseCase, FindArticleByUseCase } from './domain/usecases'
-import { ArticleRepositoryImpl, CategoryRepositoryImpl } from './data/repositories'
-import { ArticleRepository, CategoryRepository } from './domain/repositories'
-import { ArticleController } from './presentation/controllers/article.controller'
-import { CategoryController } from './presentation/controllers/category.controller'
 import { UserModule } from '../user/user.module'
+import { ArticleEntity, CategoryEntity, ExchangeEntity } from './infrastructure/entities'
+import { ArticleRepositoryOrm, CategoryRepositoryOrm } from './infrastructure/repositories'
+import { ArticleController, CategoryController } from './presentation/controllers/'
+import { ArticleUseCaseProxyModule, CategoryUseCaseProxyModule } from './infrastructure/proxy'
 
 @Module({
 
-    imports: [ 
+    imports: [
         UserModule,
-        TypeOrmModule.forFeature([ Article, Category , Exchange]) 
+        
+        CategoryUseCaseProxyModule.register(),
+        ArticleUseCaseProxyModule.register(),
+        TypeOrmModule.forFeature([ ArticleEntity, CategoryEntity , ExchangeEntity]) 
     ],
 
     controllers: [ ArticleController, CategoryController ],
 
     providers: [ 
-        FindAllArticleUseCase, 
-        CreateArticleUseCase,
-        DeleteArticleUseCase,
-        FindAllArticleUseCase,
-        FindArticleByUseCase,
-        FindAllCategoryUseCase,
         
-        { provide: ArticleRepository, useClass: ArticleRepositoryImpl },
-        { provide: CategoryRepository, useClass: CategoryRepositoryImpl }
+        ArticleRepositoryOrm,
+        CategoryRepositoryOrm
+
     ],
 
-    exports: [ TypeOrmModule ]
+    exports: [ TypeOrmModule, ArticleRepositoryOrm, CategoryRepositoryOrm ]
 
 })
 export class ArticleModule { }

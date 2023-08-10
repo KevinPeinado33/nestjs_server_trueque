@@ -1,8 +1,8 @@
-import { Category } from '../../data/entities'
+import { CategoryEntity } from '../../infrastructure/entities'
 
-export abstract class CategoryRepository {
+export interface ICategoryRepository {
     
-    abstract findAll(): Promise< Category[] >
-    abstract findById(id: string): Promise < Category >
+    findAll()           : Promise< CategoryEntity[] >
+    findById(id: string): Promise < CategoryEntity >
 
 }

@@ -1,10 +1,10 @@
-import { Article } from '../../data/entities'
-import { CreateArticleDto } from '../dtos'
+import { ArticleEntity } from '../../infrastructure/entities'
+import { ArticleModel } from '../models'
 
-export abstract class ArticleRepository {
+export interface IArticleRepository {
     
-    abstract create(payload: CreateArticleDto) : Promise< Article >
-    abstract save(payload: Article)            : Promise< Article >
-    abstract findAll()                         : Promise< Article[] >
+    create(payload: ArticleModel) : Promise< ArticleEntity >
+    save(payload: ArticleEntity)  : Promise< ArticleEntity >
+    findAll()                     : Promise< ArticleEntity[] >
 
 }

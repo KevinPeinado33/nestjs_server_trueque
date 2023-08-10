@@ -1,13 +1,12 @@
-import "reflect-metadata"
+import 'reflect-metadata'
 import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 
-import { enviroments } from './common/config/enviroments'
-import configuration from './common/config/configuration'
+import { enviroments } from './config/env/enviroments'
+import configuration from './config/configuration'
 
 import { ArticleModule } from './modules/article/article.module'
-import { DataSourceModule } from './common/data-source/data-source.module'
-import { HistoryModule } from './modules/history/history.module'
+import { DataSourceModule } from './config/database/data-source.module'
 import { UserModule } from './modules/user/user.module'
 
 @Module({
@@ -33,7 +32,6 @@ import { UserModule } from './modules/user/user.module'
      * Modulos creado unicamente en el proyecto
      */
     ArticleModule,
-    HistoryModule,
     UserModule,
 
   ]

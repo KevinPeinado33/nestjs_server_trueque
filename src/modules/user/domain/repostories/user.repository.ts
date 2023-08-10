@@ -1,9 +1,9 @@
-import { User } from '../../data/entities'
-import { RegisterDto } from '../dtos/register.dto';
+import { UserEntity } from '../../infrastructure/entities'
+import { RegisterDto } from '../../presentation/dtos'
 
-export abstract class UserRepository {
-    abstract findById(id: string): Promise< User >
-    abstract findByUsername(userName: string): Promise< User >
-    abstract create(data: RegisterDto): Promise< User >
-    abstract save(user: User): Promise< User >
+export interface UserRepository {
+    findById(id: string): Promise< UserEntity >
+    findByUsername(userName: string): Promise< UserEntity >
+    create(data: RegisterDto): Promise< UserEntity >
+    save(user: UserEntity): Promise< UserEntity >
 }
