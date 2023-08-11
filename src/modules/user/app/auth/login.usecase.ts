@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common'
 import { JwtService } from '@nestjs/jwt'
 
-import { UserRepository } from '../../domain/repostories'
+import { IUserRepository } from '../../domain/repostories'
 import { LoginDto } from '../../presentation/dtos'
 import { PayloadToken } from '../../domain/models'
 
@@ -9,7 +9,7 @@ import { PayloadToken } from '../../domain/models'
 export class LoginUseCase {
 
     constructor(
-        private userRepository: UserRepository,
+        private userRepository: IUserRepository,
         private jwtService: JwtService
     ) { }
 

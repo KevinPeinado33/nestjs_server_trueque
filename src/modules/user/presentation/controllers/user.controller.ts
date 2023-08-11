@@ -1,16 +1,31 @@
-import { Body, Controller, Post } from '@nestjs/common'
+import { Body, Controller, Inject, Post } from '@nestjs/common'
 
-import { RegisterDto } from '../dtos'
+import { UserDto } from '../dtos'
+import { IResponse } from 'src/common/responses'
+import { RegisterUserUseCase } from '../../app/user'
+import { UserUseCaseProxyModule } from '../../infrastructure/proxy'
 
 @Controller('user')
 export class UserController {
     
     constructor(
+
+        @Inject(UserUseCaseProxyModule.REGISTER_USER_USECASE)
+        private readonly createUserProxy: RegisterUserUseCase
+
     ) { }
 
-    @Post('register')
-    regiter(@Body() registerDto: RegisterDto) {
-        return 'a'
+    @Post('create')
+    async postCreate(
+        @Body() 
+        payload: UserDto
+    ): Promise<IResponse> {
+        
+        const data = await this.createUserProxy.run( payload )
+
+        return { msg: 'Bienvenido!', data }
+
     }
+
 
 }

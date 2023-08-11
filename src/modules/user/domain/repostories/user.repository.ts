@@ -1,9 +1,9 @@
 import { UserEntity } from '../../infrastructure/entities'
-import { RegisterDto } from '../../presentation/dtos'
+import { UserModel } from '../models'
 
-export interface UserRepository {
-    findById(id: string): Promise< UserEntity >
+export interface IUserRepository {
+    findById(id: string)            : Promise< UserEntity >
     findByUsername(userName: string): Promise< UserEntity >
-    create(data: RegisterDto): Promise< UserEntity >
-    save(user: UserEntity): Promise< UserEntity >
+    create(data: UserModel)         : Promise< UserEntity >
+    save(user: UserEntity)          : Promise< UserEntity >
 }

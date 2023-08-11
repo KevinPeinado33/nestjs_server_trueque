@@ -1,4 +1,4 @@
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
+import { BeforeInsert, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm'
 
 import { ArticleEntity } from '../../../article/infrastructure/entities'
 
@@ -11,7 +11,7 @@ export class UserEntity {
     @Column({ type: 'varchar', name: 'user_name', length: '100' })
     userName: string
 
-    @Column({ type: 'varchar', length: '50' })
+    @Column({ type: 'varchar', length: '500' })
     password: string
 
     @Column({ type: 'varchar', length: '100' })
@@ -36,8 +36,8 @@ export class UserEntity {
     @Column({ type: 'varchar', name: 'image_profile', length: '1000' })
     imageProfile: string
 
-    @Column({ type: 'int' })
-    age: number
+    @Column({ type: 'varchar', length: '3' })
+    age: string
 
     @Column({ type: 'boolean' })
     status: boolean
@@ -62,5 +62,10 @@ export class UserEntity {
         ( article ) =>  article.user
     )
     articles: ArticleEntity[]
+
+    @BeforeInsert()
+    checkFields() {
+        this.status = true
+    }
 
 }

@@ -34,7 +34,7 @@ export class ArticleModel {
                                 .replaceAll(' ', '_')
                                 .replaceAll("'",'')
 
-        return `${ sanitizedInput}_${this.id?.substring( 0, 5 )}`
+        return sanitizedInput
         
     }
 

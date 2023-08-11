@@ -13,7 +13,7 @@ export class FindArticlesUseCase {
 
     async run(query: PaginationDto): Promise< ArticleModel[] > {
 
-        const { limit = 0, offset = 0 } = query
+        const { limit = 10, offset = 0 } = query
 
         const articlesFound = await this.articleRepository.findAll(limit, offset)
 

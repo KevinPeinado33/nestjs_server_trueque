@@ -1,6 +1,6 @@
-import { IsBoolean, IsInt, IsNotEmpty, IsNumber, IsString, Max, Min } from 'class-validator'
+import { IsBoolean, IsEmail, IsInt, IsNotEmpty, IsNumber, IsOptional, IsString, IsUrl, Length, Max, Min } from 'class-validator'
 
-export class RegisterDto {
+export class UserDto {
 
     @IsString()
     @IsNotEmpty()
@@ -12,12 +12,12 @@ export class RegisterDto {
 
     @IsString()
     @IsNotEmpty()
+    @IsEmail()
     email: string
 
     @IsString()
     @IsNotEmpty()
-    @Min(9)
-    @Max(20)
+    @Length(9, 20)
     phone: string
 
     @IsString()
@@ -34,22 +34,23 @@ export class RegisterDto {
     qualification: number
 
     @IsString()
+    @IsUrl()
     @IsNotEmpty()
     imageProfile: string
 
-    @IsInt()
-    @Min(18)
-    @Max(100)
-    age: number
+    @IsString()
+    @IsNotEmpty()
+    age: string
 
     @IsBoolean()
-    @IsNotEmpty()
-    status: boolean
+    @IsOptional()
+    status?: boolean
 
     @IsInt()
     @Min(0)
     @Max(3)
-    numberMaxExchanges: number
+    @IsOptional()
+    numberMaxExchanges?: number
 
     @IsString()
     @IsNotEmpty()

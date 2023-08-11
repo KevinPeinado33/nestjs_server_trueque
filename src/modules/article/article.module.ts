@@ -17,7 +17,10 @@ import { ArticleUseCaseProxyModule, CategoryUseCaseProxyModule } from './infrast
         TypeOrmModule.forFeature([ ArticleEntity, CategoryEntity , ExchangeEntity]) 
     ],
 
-    controllers: [ ArticleController, CategoryController ],
+    controllers: [ 
+        ArticleController, 
+        CategoryController 
+    ],
 
     providers: [ 
         

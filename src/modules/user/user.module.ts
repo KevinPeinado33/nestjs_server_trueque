@@ -1,5 +1,5 @@
 import { ConfigType } from '@nestjs/config'
-import { JwtModule } from '@nestjs/jwt'
+import { JwtModule, JwtService } from '@nestjs/jwt'
 import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
@@ -7,11 +7,14 @@ import configuration from 'src/config/configuration'
 import { PreferenceEntity, UserEntity } from './infrastructure/entities'
 import { UserRepositoryOrm } from './infrastructure/repositories'
 import { AuthController, UserController } from './presentation/controllers'
+import { UserUseCaseProxyModule } from './infrastructure/proxy'
 
 @Module({
     
     imports: [ 
 
+        UserUseCaseProxyModule.register(),
+        
         TypeOrmModule.forFeature([ UserEntity, PreferenceEntity ]),
         
         JwtModule.registerAsync({
@@ -33,13 +36,14 @@ import { AuthController, UserController } from './presentation/controllers'
     
     controllers: [ 
         UserController, 
-        AuthController  
+        AuthController 
     ],
     
     providers: [ 
-        UserRepositoryOrm
+        UserRepositoryOrm,
+        JwtService
     ],
     
-    exports: [ TypeOrmModule, UserRepositoryOrm ]
+    exports: [ TypeOrmModule, UserRepositoryOrm, JwtService ]
 })
 export class UserModule { }
