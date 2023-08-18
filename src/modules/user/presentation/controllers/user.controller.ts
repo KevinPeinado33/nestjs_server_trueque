@@ -1,4 +1,4 @@
-import { Body, Controller, Inject, Post } from '@nestjs/common'
+import { Body, Controller, HttpCode, HttpStatus, Inject, Post } from '@nestjs/common'
 
 import { UserDto } from '../dtos'
 import { IResponse } from 'src/common/responses'
@@ -16,6 +16,7 @@ export class UserController {
     ) { }
 
     @Post('create')
+    @HttpCode(HttpStatus.CREATED)
     async postCreate(
         @Body() 
         payload: UserDto

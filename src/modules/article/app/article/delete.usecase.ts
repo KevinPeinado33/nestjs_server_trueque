@@ -1,13 +1,13 @@
 import { NotFoundException } from '@nestjs/common'
 
-import { ArticleRepositoryOrm } from '../../infrastructure/repositories'
+import { IArticleRepository } from '../../domain/repositories'
 
 export class DeleteArticleUseCase {
 
     STATUS_DELETE_ARTICLE = false
 
     constructor(
-        private readonly articleRepository: ArticleRepositoryOrm
+        private readonly articleRepository: IArticleRepository
     ) { }
 
     async run (id: string): Promise< void > {

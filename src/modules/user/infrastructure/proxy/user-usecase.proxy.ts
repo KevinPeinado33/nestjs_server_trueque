@@ -2,11 +2,11 @@ import { DynamicModule, Module, forwardRef } from '@nestjs/common'
 
 import { UserModule } from '../../user.module'
 import { UserRepositoryOrm } from '../repositories'
-import { JwtService } from '@nestjs/jwt'
 import { RegisterUserUseCase } from '../../app/user'
+import { CustomJwtModule, JwtTokenService } from 'src/common/services/jwt'
 
 @Module({
-    imports: [ forwardRef(() => UserModule) ]
+    imports: [ forwardRef(() => UserModule), CustomJwtModule ]
 })
 export class UserUseCaseProxyModule {
 
@@ -17,9 +17,9 @@ export class UserUseCaseProxyModule {
             module: UserUseCaseProxyModule,
             providers: [
                 {
-                    inject: [ UserRepositoryOrm, JwtService ],
+                    inject: [ UserRepositoryOrm, JwtTokenService ],
                     provide: UserUseCaseProxyModule.REGISTER_USER_USECASE,
-                    useFactory: (userRepositoryOrm: UserRepositoryOrm, jwtService: JwtService) => 
+                    useFactory: (userRepositoryOrm: UserRepositoryOrm, jwtService: JwtTokenService) => 
                         new RegisterUserUseCase(userRepositoryOrm, jwtService)
                     
                 }

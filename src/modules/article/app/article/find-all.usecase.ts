@@ -1,14 +1,14 @@
 import { NotFoundException } from '@nestjs/common'
 
-import { ArticleRepositoryOrm } from '../../infrastructure/repositories'
 import { ArticleModel } from '../../domain/models'
 import { ArticleMapper } from '../../domain/mappers'
 import { PaginationDto } from '../../presentation/dtos'
+import { IArticleRepository } from '../../domain/repositories'
 
 export class FindArticlesUseCase {
 
     constructor(
-        private readonly articleRepository: ArticleRepositoryOrm,
+        private readonly articleRepository: IArticleRepository,
     ) { }
 
     async run(query: PaginationDto): Promise< ArticleModel[] > {

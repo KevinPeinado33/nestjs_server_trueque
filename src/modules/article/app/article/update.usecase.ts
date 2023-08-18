@@ -1,14 +1,14 @@
 import { NotFoundException } from '@nestjs/common'
 
 import { ArticleModel } from '../../domain/models'
-import { ArticleRepositoryOrm } from '../../infrastructure/repositories'
 import { ArticleDto } from '../../presentation/dtos'
 import { ArticleMapper } from '../../domain/mappers'
+import { IArticleRepository } from '../../domain/repositories'
 
 export class UpdateArticleUseCase {
     
     constructor(
-        private readonly articleRepository: ArticleRepositoryOrm
+        private readonly articleRepository: IArticleRepository
     ) { }
 
     async run (id: string, payload: ArticleDto): Promise< ArticleModel > {

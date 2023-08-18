@@ -1,13 +1,13 @@
 import { NotFoundException } from '@nestjs/common'
 
-import { CategoryRepositoryOrm } from '../../infrastructure/repositories'
 import { CategoryModel } from '../../domain/models'
 import { CategoryMapper } from '../../domain/mappers'
+import { ICategoryRepository } from '../../domain/repositories'
 
 export class FindCategoriesUseCase {
 
     constructor(
-        private categoryRepository: CategoryRepositoryOrm
+        private categoryRepository: ICategoryRepository
     ) { }
     
     async run(): Promise< CategoryModel[] > {

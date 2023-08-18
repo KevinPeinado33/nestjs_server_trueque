@@ -1,17 +1,17 @@
 import { NotFoundException } from '@nestjs/common'
 
-import { UserRepositoryOrm } from 'src/modules/user/infrastructure/repositories'
-import { ArticleRepositoryOrm, CategoryRepositoryOrm } from '../../infrastructure/repositories'
+import { IUserRepository } from 'src/modules/user/domain/repostories'
 import { ArticleDto } from '../../presentation/dtos'
 import { ArticleModel } from '../../domain/models'
 import { ArticleMapper } from '../../domain/mappers'
+import { IArticleRepository, ICategoryRepository } from '../../domain/repositories'
 
 export class CreateArticleUseCase {
 
     constructor(
-        private readonly articleRepository  : ArticleRepositoryOrm,
-        private readonly categoryRepository : CategoryRepositoryOrm,
-        private readonly userRepository     : UserRepositoryOrm
+        private readonly articleRepository  : IArticleRepository,
+        private readonly categoryRepository : ICategoryRepository,
+        private readonly userRepository     : IUserRepository
     ) { }
 
     async run(payload: ArticleDto): Promise< ArticleModel > {

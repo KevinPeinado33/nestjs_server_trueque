@@ -8,10 +8,15 @@ import configuration from './config/configuration'
 import { ArticleModule } from './modules/article/article.module'
 import { DataSourceModule } from './config/database/data-source.module'
 import { UserModule } from './modules/user/user.module'
+import { JwtModule } from '@nestjs/jwt'
 
 @Module({
 
   imports: [
+    // CustomJwtModule,
+    JwtModule.register({
+      secret: process.env.JWT_SECRET
+    }),
 
     /**
      * Configuraciones globales
