@@ -7,7 +7,7 @@ import { UserEntity } from '../entities'
 import { UserModel } from '../../domain/models'
 
 @Injectable()
-export class UserRepositoryOrm implements IUserRepository {
+export class UserDatasourceOrm implements IUserRepository {
     
     constructor(
         @InjectRepository( UserEntity )
@@ -18,8 +18,8 @@ export class UserRepositoryOrm implements IUserRepository {
         return this.repository.findOneBy({ id })
     }
 
-    findByUsername(userName: string): Promise< UserEntity > {
-        return this.repository.findOneBy({ userName })
+    findByEmail(email: string): Promise< UserEntity > {
+        return this.repository.findOneBy({ email })
     }
 
     async create(payload: UserModel): Promise<UserEntity> {

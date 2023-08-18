@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common'
 import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { PreferenceEntity, UserEntity } from './infrastructure/entities'
-import { UserRepositoryOrm } from './infrastructure/repositories'
+import { UserDatasourceOrm } from './infrastructure/datasources'
 import { AuthController, UserController } from './presentation/controllers'
 import { UserUseCaseProxyModule } from './infrastructure/proxy'
 
@@ -20,9 +20,9 @@ import { UserUseCaseProxyModule } from './infrastructure/proxy'
     ],
     
     providers: [ 
-        UserRepositoryOrm,
+        UserDatasourceOrm,
     ],
     
-    exports: [ TypeOrmModule, UserRepositoryOrm ]
+    exports: [ TypeOrmModule, UserDatasourceOrm ]
 })
 export class UserModule { }

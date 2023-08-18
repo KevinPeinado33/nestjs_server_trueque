@@ -3,7 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 
 import { UserModule } from '../user/user.module'
 import { ArticleEntity, CategoryEntity, ExchangeEntity } from './infrastructure/entities'
-import { ArticleRepositoryOrm, CategoryRepositoryOrm } from './infrastructure/repositories'
+import { ArticleDatasourceOrm, CategoryDatasourceOrm } from './infrastructure/datasources'
 import { ArticleController, CategoryController } from './presentation/controllers/'
 import { ArticleUseCaseProxyModule, CategoryUseCaseProxyModule } from './infrastructure/proxy'
 
@@ -24,12 +24,12 @@ import { ArticleUseCaseProxyModule, CategoryUseCaseProxyModule } from './infrast
 
     providers: [ 
         
-        ArticleRepositoryOrm,
-        CategoryRepositoryOrm
+        ArticleDatasourceOrm,
+        CategoryDatasourceOrm
 
     ],
 
-    exports: [ TypeOrmModule, ArticleRepositoryOrm, CategoryRepositoryOrm ]
+    exports: [ TypeOrmModule, ArticleDatasourceOrm, CategoryDatasourceOrm ]
 
 })
 export class ArticleModule { }

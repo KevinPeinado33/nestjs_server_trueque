@@ -1,9 +1,10 @@
 import { DynamicModule, Module, forwardRef } from '@nestjs/common'
 
 import { UserModule } from '../../user.module'
-import { UserRepositoryOrm } from '../repositories'
+import { UserDatasourceOrm } from '../datasources'
 import { RegisterUserUseCase } from '../../app/user'
 import { CustomJwtModule, JwtTokenService } from 'src/common/services/jwt'
+import { LoginUseCase } from '../../app/auth'
 
 @Module({
     imports: [ forwardRef(() => UserModule), CustomJwtModule ]
@@ -11,21 +12,29 @@ import { CustomJwtModule, JwtTokenService } from 'src/common/services/jwt'
 export class UserUseCaseProxyModule {
 
     static REGISTER_USER_USECASE = 'registerUserUseCaseProxy'
+    static LOGIN_USER_USECASE    = 'loginUserUseCaseProxy'
 
     static register(): DynamicModule {
         return {
             module: UserUseCaseProxyModule,
             providers: [
                 {
-                    inject: [ UserRepositoryOrm, JwtTokenService ],
+                    inject: [ UserDatasourceOrm, JwtTokenService ],
                     provide: UserUseCaseProxyModule.REGISTER_USER_USECASE,
-                    useFactory: (userRepositoryOrm: UserRepositoryOrm, jwtService: JwtTokenService) => 
+                    useFactory: (userRepositoryOrm: UserDatasourceOrm, jwtService: JwtTokenService) => 
                         new RegisterUserUseCase(userRepositoryOrm, jwtService)
                     
+                },
+                {
+                    inject: [ UserDatasourceOrm, JwtTokenService ],
+                    provide: UserUseCaseProxyModule.LOGIN_USER_USECASE,
+                    useFactory: (userRepositoryOrm: UserDatasourceOrm, jwtService: JwtTokenService) => 
+                        new LoginUseCase(userRepositoryOrm, jwtService)
                 }
             ],
             exports: [ 
-                UserUseCaseProxyModule.REGISTER_USER_USECASE
+                UserUseCaseProxyModule.REGISTER_USER_USECASE,
+                UserUseCaseProxyModule.LOGIN_USER_USECASE
             ]
         }
 

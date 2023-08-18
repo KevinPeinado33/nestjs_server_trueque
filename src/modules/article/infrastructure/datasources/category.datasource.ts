@@ -6,7 +6,7 @@ import { ICategoryRepository } from '../../domain/repositories'
 import { CategoryEntity } from '../entities'
 
 @Injectable()
-export class CategoryRepositoryOrm implements ICategoryRepository {
+export class CategoryDatasourceOrm implements ICategoryRepository {
     
     constructor(
         @InjectRepository( CategoryEntity )

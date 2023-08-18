@@ -7,7 +7,7 @@ import { ArticleEntity } from '../entities'
 import { ArticleModel } from '../../domain/models'
 
 @Injectable()
-export class ArticleRepositoryOrm implements IArticleRepository {
+export class ArticleDatasourceOrm implements IArticleRepository {
     
     constructor(
         @InjectRepository( ArticleEntity )

@@ -1,36 +1,34 @@
-import { Injectable, NotFoundException } from '@nestjs/common'
-import { JwtService } from '@nestjs/jwt'
+import { BadRequestException, InternalServerErrorException, NotFoundException } from '@nestjs/common'
+import * as bcrypt from 'bcrypt'
 
+import { IJwtService } from 'src/common/services/jwt'
 import { IUserRepository } from '../../domain/repostories'
 import { LoginDto } from '../../presentation/dtos'
-import { PayloadToken } from '../../domain/models'
-
-
+import { UserMapper } from '../../domain/mappers'
 export class LoginUseCase {
 
     constructor(
-        private userRepository: IUserRepository,
-        private jwtService: JwtService
+        private readonly userRepository : IUserRepository,
+        private readonly jwtService     : IJwtService
     ) { }
 
-    async run ( loginUserDto: LoginDto ) {
+    async run ( loginDto: LoginDto ) {
+
+        const userFound = await this.userRepository.findByEmail( loginDto.email )
+
+        if ( !userFound ) throw new NotFoundException('Credenciales incorrectas.')
+
+        const validPassword = await bcrypt.compare( loginDto.password, userFound.password )
+
+        if ( !validPassword ) throw new BadRequestException('Contraseña incorrecta!')
         
-        const userFound = await this.userRepository.findByUsername( loginUserDto.userName )
-
-        if ( !userFound )
-            throw new NotFoundException('Credenciales incorrectas, intente otra vez.')
-
-        // TODO: validar si la contraseña es correcta
+        const tokenGenerated = this.jwtService.createToken( { id: userFound.id } )
         
-        const payload: PayloadToken = { sub: userFound.id, user: userFound.userName }
-
         return {
-            access_token: this.jwtService.sign( payload ),
-            user: userFound
+            user: UserMapper.entiyToModel( userFound ),
+            token: tokenGenerated
         }
-
         
     }
-
 
 }

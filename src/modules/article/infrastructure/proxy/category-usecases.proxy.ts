@@ -1,6 +1,6 @@
 import { DynamicModule, Module, forwardRef } from '@nestjs/common'
 
-import { CategoryRepositoryOrm } from '../repositories'
+import { CategoryDatasourceOrm } from '../datasources'
 import { ArticleModule } from '../../article.module'
 import { FindCategoriesUseCase } from '../../app/category'
 
@@ -17,10 +17,10 @@ export class CategoryUseCaseProxyModule {
             module: CategoryUseCaseProxyModule,
             providers: [
                 {
-                    inject: [ CategoryRepositoryOrm ],
+                    inject: [ CategoryDatasourceOrm ],
                     provide: CategoryUseCaseProxyModule.FIND_CATEGORIES_USECASE,
                     useFactory: ( 
-                        categoryRepository: CategoryRepositoryOrm
+                        categoryRepository: CategoryDatasourceOrm
                     ) => new FindCategoriesUseCase( categoryRepository )
                     
                 }

@@ -7,17 +7,14 @@ export class UserEntity {
 
     @PrimaryGeneratedColumn('uuid')
     id: string
-
-    @Column({ type: 'varchar', name: 'user_name', length: '100' })
-    userName: string
-
-    @Column({ type: 'varchar', length: '500' })
-    password: string
-
-    @Column({ type: 'varchar', length: '100' })
+    
+    @Column({ type: 'varchar', length: '100', unique: true })
     email: string
 
-    @Column({ type: 'varchar', name: 'phone_number', length: '20' })
+    @Column({ type: 'varchar', length: '600' })
+    password: string
+
+    @Column({ type: 'varchar', name: 'phone_number', length: '20', unique: true })
     phone: string
 
     @Column({ type: 'varchar', name: 'first_name', length: '150' })
@@ -36,6 +33,9 @@ export class UserEntity {
     @Column({ type: 'varchar', name: 'image_profile', length: '1000' })
     imageProfile: string
 
+    @Column({ type: 'timestamptz', name: 'date_birth' })
+    dateBirth: Date
+
     @Column({ type: 'varchar', length: '3' })
     age: string
 
@@ -50,7 +50,7 @@ export class UserEntity {
     @Column({ type: 'int', name: 'number_max_exchanges' })
     numberMaxExchanges: number
 
-    @Column({ type: 'varchar', name: 'place_user', length: '300' })
+    @Column({ type: 'varchar', name: 'place_user', length: '350' })
     place: string
 
     /**

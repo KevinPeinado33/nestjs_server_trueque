@@ -2,9 +2,9 @@ import { DynamicModule, Module, forwardRef } from '@nestjs/common'
 
 import { ArticleModule } from '../../article.module'
 import { UserModule } from 'src/modules/user/user.module'
-import { ArticleRepositoryOrm, CategoryRepositoryOrm } from '../repositories'
+import { ArticleDatasourceOrm, CategoryDatasourceOrm } from '../datasources'
 import { CreateArticleUseCase, FindArticlesUseCase, FindArticleUseCase } from '../../app/article'
-import { UserRepositoryOrm } from 'src/modules/user/infrastructure/repositories'
+import { UserDatasourceOrm } from 'src/modules/user/infrastructure/datasources'
 import { DeleteArticleUseCase } from '../../app/article/delete.usecase'
 import { UpdateArticleUseCase } from '../../app/article/update.usecase'
 
@@ -24,38 +24,38 @@ export class ArticleUseCaseProxyModule {
             module: ArticleUseCaseProxyModule,
             providers: [
                 {
-                    inject: [ ArticleRepositoryOrm, CategoryRepositoryOrm, UserRepositoryOrm ],
+                    inject: [ ArticleDatasourceOrm, CategoryDatasourceOrm, UserDatasourceOrm ],
                     provide: ArticleUseCaseProxyModule.CREATE_ARTICLE_USECASE,
                     useFactory: ( 
-                        articleRepository: ArticleRepositoryOrm,
-                        categoryRepository: CategoryRepositoryOrm,
-                        userRepository: UserRepositoryOrm
+                        articleRepository: ArticleDatasourceOrm,
+                        categoryRepository: CategoryDatasourceOrm,
+                        userRepository: UserDatasourceOrm
 
                     ) => new CreateArticleUseCase(articleRepository, categoryRepository, userRepository)
                     
                 },
                 {
-                    inject: [ ArticleRepositoryOrm ],
+                    inject: [ ArticleDatasourceOrm ],
                     provide: ArticleUseCaseProxyModule.FIND_ARTICLES_USECASE,
-                    useFactory: (articleRepository: ArticleRepositoryOrm) =>
+                    useFactory: (articleRepository: ArticleDatasourceOrm) =>
                         new FindArticlesUseCase( articleRepository )
                 },
                 {
-                    inject: [ ArticleRepositoryOrm ],
+                    inject: [ ArticleDatasourceOrm ],
                     provide: ArticleUseCaseProxyModule.FIND_ARTICLE_USECASE,
-                    useFactory: (articleRepository: ArticleRepositoryOrm) => 
+                    useFactory: (articleRepository: ArticleDatasourceOrm) => 
                         new FindArticleUseCase( articleRepository )
                 },
                 {
-                    inject: [ ArticleRepositoryOrm ],
+                    inject: [ ArticleDatasourceOrm ],
                     provide: ArticleUseCaseProxyModule.DELETE_ARTICLE_USECASE,
-                    useFactory: (articleRepository: ArticleRepositoryOrm) => 
+                    useFactory: (articleRepository: ArticleDatasourceOrm) => 
                         new DeleteArticleUseCase( articleRepository )
                 },
                 {
-                    inject: [ ArticleRepositoryOrm ],
+                    inject: [ ArticleDatasourceOrm ],
                     provide: ArticleUseCaseProxyModule.UPDATE_ARTICLE_USECASE,
-                    useFactory: (articleRepository: ArticleRepositoryOrm) => 
+                    useFactory: (articleRepository: ArticleDatasourceOrm) => 
                         new UpdateArticleUseCase( articleRepository )
                 },
             ],
