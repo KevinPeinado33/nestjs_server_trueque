@@ -15,7 +15,7 @@ async function bootstrap() {
     })
   )
 
-  await app.listen(process.env.PORT)
-  logger.log(`App corriendo en el puerto ${ process.env.PORT }.`)
+  await app.listen(3000)
+  logger.log(`App corriendo en el puerto 3000.`)
 }
 bootstrap()

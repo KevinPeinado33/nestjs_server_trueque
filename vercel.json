@@ -1,7 +1,6 @@
 {
     "version": 2,
     "env": {
-        "PORT": "@portapp",
         "POSTGRES_DB": "@namedb",
         "POSTGRES_USER": "@userdb",
         "POSTGRES_PASSWORD": "@passwordb",
