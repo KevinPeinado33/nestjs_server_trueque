@@ -23,7 +23,7 @@ export class ArticleDatasourceOrm implements IArticleRepository {
     }
     
     findAll(limit: number, offset: number): Promise<ArticleEntity[]> {
-        return this.repository.find({ take: limit, skip: offset, where: { status: true } })
+        return this.repository.find({ take: limit, skip: offset, where: { status: true }, relations: ['category'] })
     }
 
     findOneById(id: string): Promise<ArticleEntity | null> {

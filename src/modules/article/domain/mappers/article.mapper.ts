@@ -44,9 +44,7 @@ export class ArticleMapper {
     static entitiesToModels(entities: ArticleEntity[]): ArticleModel[] {
         
         const models = entities.map(( entity ) => {
-
-            console.log({ entity })
-
+        
             const model = new ArticleModel({
                 id: entity.id!,
                 title: entity.title,
@@ -58,7 +56,7 @@ export class ArticleMapper {
                 condition: entity.condition,
                 type: entity.type,
                 userId: entity.user?.id,
-                categoryId: entity.category?.id,
+                categoryId: entity.category?.title,
             })
     
             return model
